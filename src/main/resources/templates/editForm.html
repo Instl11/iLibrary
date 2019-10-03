@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+</head>
+<body>
+<div>
+    <h2>Edit current book</h2>
+    <form method="POST" th:object="${editedBook}">
+        <h3>Book's name</h3>
+        <input type="text" value="*{name}" th:field="*{name}">
+        <h3>Book's author</h3>
+        <input type="text" value="*{author}" th:field="*{author}">
+        <h3>Your mark (1-10)</h3>
+        <input type="text" value="*{mark}" th:field="*{mark}">
+        <input type="hidden" value="*{creationDate}" th:field="*{creationDate}">
+        <input type="submit" value="Edit">
+    </form>
+
+</div>
+</body>
+</html>
