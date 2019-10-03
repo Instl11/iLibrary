@@ -7,13 +7,15 @@
 <body>
 <div>
     <h2>Add new Book</h2>
-    <form method="POST" th:object="${newBook}">
+    <form method="POST" th:object="${newBook}" enctype="multipart/form-data">
         <h3>Book's name</h3>
         <input type="text" placeholder="Book's name" th:field="*{name}">
         <h3>Book's author</h3>
         <input type="text" placeholder="Book's author" th:field="*{author}">
         <h3>Your mark (1-10)</h3>
         <input type="text" placeholder="Your mark" th:field="*{mark}">
+        <h3>Download book</h3>
+        <input type="file" name="file">
         <input type="submit" value="Add book">
     </form>
 

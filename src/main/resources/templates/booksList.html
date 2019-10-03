@@ -8,8 +8,8 @@
 
 <div>
     <h3>Add new book</h3>
-    <form method="POST" >
-    <input type="submit" value="Add new book">
+    <form method="GET" th:action="@{/newBook}">
+        <input type="submit" value="Add new book">
     </form>
 </div>
 
@@ -22,6 +22,7 @@
         <td><b>Mark</b></td>
         <td><b>Edit</b></td>
         <td><b>Delete</b></td>
+        <td><b>Link</b></td>
     </tr>
     <tr align="left" th:each="b : ${booksList}">
         <td th:text="${b.id}"></td>
@@ -30,6 +31,9 @@
         <td th:text="${b.mark}"></td>
         <td><a th:href="@{'/edit/' + ${b.id}}">Edit</a></td>
         <td><a th:href="@{'/delete/' + ${b.id}}">Delete</a></td>
+        <td th:if="${b.fileName != null}">
+            <a th:href="@{'/download/' + ${b.id}}">Download</a>
+        </td>
     </tr>
 </table>
 
@@ -42,6 +46,7 @@
         <td><b>Mark</b></td>
         <td><b>Edit</b></td>
         <td><b>Delete</b></td>
+        <td><b>Link</b></td>
     </tr>
     <tr align="left" th:each="b : ${popular}">
         <td th:text="${b.id}"></td>
@@ -50,6 +55,9 @@
         <td th:text="${b.mark}"></td>
         <td><a th:href="@{'/edit/' + ${b.id}}">Edit</a></td>
         <td><a th:href="@{'/delete/' + ${b.id}}">Delete</a></td>
+        <td th:if="${b.fileName != null}">
+            <a th:href="@{'/download/' + ${b.id}}">Download</a>
+        </td>
     </tr>
 </table>
 
