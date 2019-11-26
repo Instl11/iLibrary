@@ -1,7 +1,7 @@
 package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
-import lib.iLibrary.repository.BookRepo;
+import lib.iLibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,13 +19,13 @@ import java.util.UUID;
 @RequestMapping("/newBook")
 public class NewBookController {
 
-    private BookRepo bookRepo;
+    private BookRepository bookRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
 
     @Autowired
-    public NewBookController(BookRepo bookRepo) {
+    public NewBookController(BookRepository bookRepo) {
         this.bookRepo = bookRepo;
     }
 

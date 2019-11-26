@@ -16,9 +16,15 @@
         <input type="text" placeholder="Your mark" th:field="*{mark}">
         <h3>Download book</h3>
         <input type="file" name="file">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Add book">
     </form>
 
+</div>
+<div>
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
 </div>
 </body>
 </html>

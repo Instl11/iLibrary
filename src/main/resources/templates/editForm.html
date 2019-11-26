@@ -24,9 +24,15 @@
             <a th:href="@{'delete/' + ${editedBook.id}}">Delete File</a>
         </div>
         <br><br>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Edit">
     </form>
 
+</div>
+<div>
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
 </div>
 </body>
 </html>

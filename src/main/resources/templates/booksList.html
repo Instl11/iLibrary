@@ -9,6 +9,7 @@
 <div>
     <h3>Add new book</h3>
     <form method="GET" th:action="@{/newBook}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Add new book">
     </form>
 </div>
@@ -65,6 +66,7 @@
     <form method="get" th:action="@{/books/byId}">
         <h3>Find book by Id</h3>
         <input type="number" placeholder="id" name="id">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Find">
     </form>
 </div>
@@ -72,6 +74,7 @@
     <form method="get" th:action="@{/books/byName}">
         <h3>Find books by name</h3>
         <input type="text" placeholder="name" name="name">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Find">
     </form>
 </div>
@@ -79,9 +82,14 @@
     <form method="get" th:action="@{/books/byAuthor}">
         <h3>Find books by author</h3>
         <input type="text" placeholder="author" name="author">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Find">
     </form>
 </div>
-
+<div>
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 </body>
 </html>

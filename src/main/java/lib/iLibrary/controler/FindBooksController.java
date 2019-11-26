@@ -2,7 +2,7 @@ package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
 import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepo;
+import lib.iLibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/books")
 public class FindBooksController {
 
-    private BookRepo bookRepo;
+    private BookRepository bookRepo;
 
     @Autowired
-    public FindBooksController(BookRepo bookRepo) {
+    public FindBooksController(BookRepository bookRepo) {
         this.bookRepo = bookRepo;
     }
 

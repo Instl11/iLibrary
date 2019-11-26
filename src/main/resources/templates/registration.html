@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library</title>
+</head>
+<body>
+<h1>Register</h1>
+<img th:src="@{/images/book.png}"/>
+<form method="POST" th:action="@{/registration}" name="form">
+    <label for="username">Username: </label>
+    <input type="text" name="username"/><br/>
+    <label for="password">Password: </label>
+    <input type="password" name="password"/><br/>
+    <label for="confirm">Confirm password: </label>
+    <input type="password" name="confirm"/><br/>
+    <label for="fullName">Full name: </label>
+    <input type="text" name="fullName"/><br/>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <input type="submit" value="Register"/>
+</form>
+</body>
+</html>

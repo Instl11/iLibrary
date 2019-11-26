@@ -12,7 +12,7 @@ import java.util.Set;
 @SpringBootApplication
 public class ILibraryApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		SpringApplication.run(ILibraryApplication.class, args);
 	}
 

@@ -2,9 +2,8 @@ package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
 import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepo;
+import lib.iLibrary.repository.BookRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,19 +12,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("edit")
 public class EditBookController {
 
-    private BookRepo bookRepo;
+    private BookRepository bookRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
 
-    public EditBookController(BookRepo bookRepo) {
+    public EditBookController(BookRepository bookRepo) {
         this.bookRepo = bookRepo;
     }
 

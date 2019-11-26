@@ -32,12 +32,19 @@
     <form method="get" th:action="@{/books/byAuthor}">
         <h3>Find books by name</h3>
         <input type="text" placeholder="author" name="author">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Find">
     </form>
 </div>
 <br><br>
 <div>
     <a href="/books"><input type="submit" value="Return to Library"></a>
+</div>
+
+<div>
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
 </div>
 
 </body>

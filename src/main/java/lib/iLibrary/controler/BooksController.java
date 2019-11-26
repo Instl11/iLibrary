@@ -2,13 +2,11 @@ package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
 import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lib.iLibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +24,12 @@ import java.util.List;
 @Controller
 public class BooksController {
 
-    private BookRepo bookRepo;
+    private BookRepository bookRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
 
-    public BooksController(BookRepo bookRepo) {
+    public BooksController(BookRepository bookRepo) {
         this.bookRepo = bookRepo;
     }
 
@@ -70,7 +68,8 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @GetMapping(value = "download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "download/{id}",
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<ByteArrayResource> download(@PathVariable("id") Book book) throws IOException {
 
         String fileName = book.getFileName();
