@@ -3,6 +3,7 @@ package lib.iLibrary.controler;
 import lib.iLibrary.entity.Book;
 import lib.iLibrary.exceptions.NoCurrentBookException;
 import lib.iLibrary.repository.BookRepository;
+import lib.iLibrary.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +17,16 @@ import java.util.List;
 @RequestMapping("/books")
 public class FindBooksController {
 
-    private BookRepository bookRepo;
+    private BookService bookService;
 
-    @Autowired
-    public FindBooksController(BookRepository bookRepo) {
-        this.bookRepo = bookRepo;
+    public FindBooksController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping("/byId")
     public String bookById(@RequestParam Long id, Model model){
         try {
-            Book book = bookRepo.findById(id).orElseThrow(NoCurrentBookException::new);
+            Book book = bookService.getById(id);
             model.addAttribute("book", book);
         }catch (NoCurrentBookException e){
             return "noCurrentBook";
@@ -36,14 +36,14 @@ public class FindBooksController {
 
     @GetMapping("/byName")
     public String bookByName(@RequestParam String name, Model model){
-        List<Book> byNameStartingWith = bookRepo.findByNameStartingWith(name);
+        List<Book> byNameStartingWith = bookService.getByName(name);
         model.addAttribute("list", byNameStartingWith);
         return "bookByName";
     }
 
     @GetMapping("/byAuthor")
     public String bookByAuthor(@RequestParam String author, Model model){
-        List<Book> byAuthor = bookRepo.getBooksByAuthor(author);
+        List<Book> byAuthor = bookService.getByAuthor(author);
         model.addAttribute("listA", byAuthor);
         return "bookByAuthor";
     }

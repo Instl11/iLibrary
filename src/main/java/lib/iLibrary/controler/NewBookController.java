@@ -1,32 +1,22 @@
 package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
-import lib.iLibrary.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lib.iLibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/newBook")
 public class NewBookController {
 
-    private BookRepository bookRepo;
+    private BookService bookService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
-    @Autowired
-    public NewBookController(BookRepository bookRepo) {
-        this.bookRepo = bookRepo;
+    public NewBookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping
@@ -36,22 +26,9 @@ public class NewBookController {
     }
 
     @PostMapping
-    public String addBook(@ModelAttribute Book newBook, @RequestParam("file") MultipartFile file) throws IOException {
-
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-
-            Path path = Paths.get(uploadPath);
-            if (!Files.exists(path)) {
-                Files.createDirectory(path);
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(path.resolve(resultFilename));
-            newBook.setFileName(resultFilename);
-        }
-        bookRepo.save(newBook);
+    public String addBook(@ModelAttribute Book newBook,
+                          @RequestParam("file") MultipartFile file) throws IOException {
+        bookService.addFileAndSave(newBook, file);
         return "redirect:/books";
     }
 }
