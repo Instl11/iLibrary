@@ -24,25 +24,22 @@ public class FindBooksController {
     }
 
     @GetMapping("/byId")
-    public String bookById(@RequestParam Long id, Model model){
-        try {
-            Book book = bookService.getById(id);
-            model.addAttribute("book", book);
-        }catch (NoCurrentBookException e){
-            return "noCurrentBook";
-        }
+    public String bookById(@RequestParam Long id, Model model) {
+
+        Book book = bookService.getById(id);
+        model.addAttribute("book", book);
         return "bookById";
     }
 
     @GetMapping("/byName")
-    public String bookByName(@RequestParam String name, Model model){
+    public String bookByName(@RequestParam String name, Model model) {
         List<Book> byNameStartingWith = bookService.getByName(name);
         model.addAttribute("list", byNameStartingWith);
         return "bookByName";
     }
 
     @GetMapping("/byAuthor")
-    public String bookByAuthor(@RequestParam String author, Model model){
+    public String bookByAuthor(@RequestParam String author, Model model) {
         List<Book> byAuthor = bookService.getByAuthor(author);
         model.addAttribute("listA", byAuthor);
         return "bookByAuthor";

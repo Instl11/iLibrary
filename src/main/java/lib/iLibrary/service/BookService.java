@@ -51,14 +51,11 @@ public class BookService {
     }
 
     public void delete(Long id) {
-        Optional<Book> optionalBook = bookRepo.findById(id);
-        if (optionalBook.isPresent()) {
-            Book book = optionalBook.get();
+        Book book = getById(id);
             String fileName = book.getFileName();
             File file = new File(uploadPath + File.separator + fileName);
             file.delete();
             bookRepo.delete(book);
-        }
     }
 
     public void deleteFile(Book book) {

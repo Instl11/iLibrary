@@ -29,23 +29,15 @@ public class EditBookController {
 
     @GetMapping("/{id}")
     public String editBookPage(@PathVariable("id") Long id, Model model) {
-        try {
-            model.addAttribute("editedBook", bookService.getById(id));
-        } catch (NoCurrentBookException e) {
-            return "noCurrentBook";
-        }
+
+        model.addAttribute("editedBook", bookService.getById(id));
         return "editForm";
     }
 
     @PostMapping("/{id}")
     public String editBook(@ModelAttribute Book editedBook,
                            @RequestParam("file") MultipartFile file) throws IOException {
-        Book book;
-        try {
-            book = bookService.getById(editedBook.getId());
-        } catch (NoCurrentBookException e) {
-            return "noCurrentBook";
-        }
+        Book book = bookService.getById(editedBook.getId());
         BeanUtils.copyProperties(editedBook, book, "id", "creationDate", "fileName");
 
         bookService.addFileAndSave(book, file);
@@ -54,12 +46,8 @@ public class EditBookController {
 
     @GetMapping("/delete/{id}")
     public String deleteFile(@PathVariable("id") Long id) {
-        Book book;
-        try {
-            book = bookService.getById(id);
-        } catch (NoCurrentBookException e) {
-            return "noCurrentBook";
-        }
+
+        Book book = bookService.getById(id);
         bookService.deleteFile(book);
         return "redirect:/edit/" + id;
     }

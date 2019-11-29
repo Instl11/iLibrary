@@ -6,16 +6,16 @@
 </head>
 <body>
 <h1>Register</h1>
-<img th:src="@{/images/book.jpg}">
+<img th:src="@{/image/book.jpg}">
 <form method="POST" th:action="@{/registration}" name="form">
-    <label for="username">Username: </label>
-    <input type="text" name="username"/><br/>
-    <label for="password">Password: </label>
-    <input type="password" name="password"/><br/>
-    <label for="confirm">Confirm password: </label>
-    <input type="password" name="confirm"/><br/>
-    <label for="fullName">Full name: </label>
-    <input type="text" name="fullName"/><br/>
+    <h3><label for="username">Username: </label>
+    <input type="text" name="username"/></h3>
+    <h3><label for="password">Password: </label>
+    <input type="password" name="password"/></h3>
+    <h3><label for="confirm">Confirm password: </label>
+    <input type="password" name="confirm"/></h3>
+    <h3><label for="fullName">Full name: </label>
+    <input type="text" name="fullName"/></h3>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <input type="submit" value="Register"/>
 </form>
