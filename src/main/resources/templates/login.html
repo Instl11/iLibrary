@@ -9,6 +9,12 @@
 <img th:src="@{/image/book.jpg}">
 <div th:if="${error}"> Unable to login. Check your username and password.</div>
 
+<div>
+    <p th:if="${message != null}">
+        <h3><p th:text="${message}"></p></h3>
+    </p>
+</div>
+
 <form method="POST" th:action="@{/login}" id="loginForm">
     <h3><label for="username">Username: </label>
     <input type="text" name="username" id="username"/></h3>

@@ -21,20 +21,13 @@ import java.util.List;
 @Controller
 public class BooksController {
 
-    private BookRepository bookRepo;
     private BookService bookService;
 
     @Value("${upload.path}")
     private String uploadPath;
 
-    public BooksController(BookRepository bookRepo, BookService service) {
-        this.bookRepo = bookRepo;
+    public BooksController(BookService service) {
         this.bookService = service;
-    }
-
-    @GetMapping("/")
-    public String getStartPage() {
-        return "greeting";
     }
 
     @GetMapping("/books")

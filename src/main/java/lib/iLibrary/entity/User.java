@@ -28,6 +28,12 @@ public class User implements UserDetails {
     private final String password;
     private final String fullName;
 
+    /**
+     * Email
+     * */
+    private String email;
+    private String activationCode;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -57,5 +63,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User(String username, String password, String fullName, String email) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
     }
 }
