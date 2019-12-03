@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -27,9 +28,15 @@ public class User implements UserDetails {
     private final String password;
     private final String fullName;
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return getRoles();
+        //return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

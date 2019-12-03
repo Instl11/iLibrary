@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<h1>Users List</h1>
+<table width="30%" border="2" cellpadding="4">
+    <tr>
+        <td>User</td>
+        <td>Role</td>
+    </tr>
+    <tr align="left" th:each="u : ${users}">
+        <td th:text="${u.username}"></td>
+        <td th:each="r : ${u.roles}">
+            <p th:text="${r.getAuthority()}"></p>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

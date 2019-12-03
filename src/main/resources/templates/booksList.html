@@ -85,11 +85,14 @@
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <input type="submit" value="Find">
     </form>
-</div>
+</div><br>
 <div>
     <form method="POST" th:action="@{/logout}">
         <input type="submit" value="Logout"/>
     </form>
+</div><br>
+<div>
+    <a th:href="@{/users}">Users List</a>
 </div>
 </body>
 </html>
