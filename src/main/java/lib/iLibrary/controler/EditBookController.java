@@ -1,8 +1,6 @@
 package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
-import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepository;
 import lib.iLibrary.service.BookService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @Controller

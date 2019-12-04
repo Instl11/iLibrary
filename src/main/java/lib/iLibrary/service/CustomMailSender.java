@@ -1,7 +1,6 @@
 package lib.iLibrary.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ public class CustomMailSender {
     }
 
     public void send(String emailTo, String topic, String message) {
+
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);

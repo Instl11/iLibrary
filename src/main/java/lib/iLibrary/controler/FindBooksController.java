@@ -1,10 +1,7 @@
 package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
-import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepository;
 import lib.iLibrary.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +18,6 @@ public class FindBooksController {
 
     public FindBooksController(BookService bookService) {
         this.bookService = bookService;
-    }
-
-    @GetMapping("/byId")
-    public String bookById(@RequestParam Long id, Model model) {
-
-        Book book = bookService.getById(id);
-        model.addAttribute("book", book);
-        return "bookById";
     }
 
     @GetMapping("/byName")

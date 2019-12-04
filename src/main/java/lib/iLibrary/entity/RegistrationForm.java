@@ -3,8 +3,6 @@ package lib.iLibrary.entity;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Date;
-
 @Data
 public class RegistrationForm {
 

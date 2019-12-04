@@ -1,20 +1,20 @@
 package lib.iLibrary.controler;
 
 import lib.iLibrary.entity.Book;
-import lib.iLibrary.exceptions.NoCurrentBookException;
-import lib.iLibrary.repository.BookRepository;
+import lib.iLibrary.entity.Role;
+import lib.iLibrary.entity.User;
 import lib.iLibrary.service.BookService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,15 +23,12 @@ public class BooksController {
 
     private BookService bookService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     public BooksController(BookService service) {
         this.bookService = service;
     }
 
     @GetMapping("/books")
-    public String getBooks(Model model) {
+    public String getBooks(Model model, @AuthenticationPrincipal User user) {
         PageRequest last = PageRequest.of(0, 5, Sort.by("creationDate").descending());
         List<Book> books = bookService.getByPage(last);
         model.addAttribute("booksList", books);
@@ -39,6 +36,10 @@ public class BooksController {
         PageRequest popular = PageRequest.of(0, 3, Sort.by("mark").descending());
         List<Book> popularBooks = bookService.getByPage(popular);
         model.addAttribute("popular", popularBooks);
+
+        boolean isAdmin = user.getRoles().contains(Role.ADMIN);
+        model.addAttribute("admin", isAdmin);
+
         return "booksList";
     }
 
