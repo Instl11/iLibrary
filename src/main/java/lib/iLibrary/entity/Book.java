@@ -10,9 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
 
-@Data @RequiredArgsConstructor @NoArgsConstructor
+@Data
 @Entity
 public class Book {
 
@@ -23,13 +24,12 @@ public class Book {
     @CreationTimestamp
     Timestamp creationDate;
 
-    @NonNull
+    @NotBlank(message = "Please type book's name")
     private String name;
 
-    @NonNull
+    @NotBlank(message = "Please type book's author")
     private String author;
 
-    @NonNull
     private int mark;
 
     private String fileName;

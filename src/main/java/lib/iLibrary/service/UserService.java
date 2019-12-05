@@ -36,12 +36,13 @@ public class UserService implements UserDetailsService {
         throw new UsernameNotFoundException("User " + username + " not found");
     }
 
-    public boolean addUser(RegistrationForm form) {
-        User userFromDB = userRepo.findByUsername(form.getUsername());
+    public boolean addUser(User user) {
+
+        User userFromDB = userRepo.findByUsername(user.getUsername());
         if (userFromDB != null) {
             return false;
         }
-        User user = form.toUser(passwordEncoder);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         userRepo.save(user);

@@ -7,21 +7,40 @@
 <body>
 <h1>Register</h1>
 <img th:src="@{/image/book.jpg}">
-<form method="POST" th:action="@{/registration}" name="form">
-    <h3><label for="username">Username: </label>
-    <input type="text" name="username"/></h3>
-    <h3><label for="password">Password: </label>
-    <input type="password" name="password"/></h3>
-    <h3><label for="confirm">Confirm password: </label>
-    <input type="password" name="confirm"/></h3>
-
-    <h3><label for="email">Email: </label>
-        <input type="email" name="email"/></h3>
-
-    <h3><label for="fullName">Full name: </label>
-    <input type="text" name="fullName"/></h3>
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <input type="submit" value="Register"/>
+<form method="POST" th:action="@{/registration}" th:object="${user}">
+    <table>
+        <tr>
+            <td><h3>Username:</h3></td>
+            <td><input type="text" th:field="*{username}"/></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
+            <td th:if="${mes} != null" th:text="${mes}"></td>
+        </tr>
+        <tr>
+            <td><h3>Password: </h3></td>
+            <td><input type="password" th:field="*{password}"/></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+            <td th:if="${confirm} != null" th:text="${confirm}"></td>
+        </tr>
+        <tr>
+            <td><h3>Confirm pass: </h3></td>
+            <td><input type="password" th:field="*{confirmPassword}"/></td>
+            <td th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</td>
+            <td th:if="${confirm} != null" th:text="${confirm}"></td>
+        </tr>
+        <tr>
+            <td><h3>Email: </h3></td>
+            <td><input type="email" th:field="*{email}"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
+        </tr>
+        <tr>
+            <td><h3>Full name: </h3></td>
+            <td><input type="text" th:field="*{fullName}"/></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" name="_csrf" th:value="${_csrf.token}"/></td>
+            <td><input type="submit" value="Register"/></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

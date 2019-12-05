@@ -4,9 +4,11 @@ import lib.iLibrary.entity.Book;
 import lib.iLibrary.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -20,15 +22,20 @@ public class NewBookController {
     }
 
     @GetMapping
-    public String newBookPage(Model model) {
-        model.addAttribute("newBook", new Book());
+    public String newBookPage(Book book) {
         return "newBook";
     }
 
     @PostMapping
-    public String addBook(@ModelAttribute Book newBook,
+    public String addBook(@Valid Book book,
+                          BindingResult bindingResult,
                           @RequestParam("file") MultipartFile file) throws IOException {
-        bookService.addFileAndSave(newBook, file);
+
+        if (bindingResult.hasErrors()) {
+            return "newBook";
+        }
+
+        bookService.addFileAndSave(book, file);
         return "redirect:/books";
     }
 }
