@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Library</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <h1>Register</h1>
@@ -35,6 +36,12 @@
         <tr>
             <td><h3>Full name: </h3></td>
             <td><input type="text" th:field="*{fullName}"/></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="g-recaptcha" data-sitekey="6LfkZMYUAAAAALnviD8AUDFaWnbpA8GX4cvKbxFP"></div>
+            </td>
+            <td th:if="${captchaError != null}" th:text="${captchaError}"></td>
         </tr>
         <tr>
             <td><input type="hidden" name="_csrf" th:value="${_csrf.token}"/></td>

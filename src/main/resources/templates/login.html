@@ -19,10 +19,13 @@
     <h3><label for="username">Username: </label>
     <input type="text" name="username" id="username"/></h3>
     <h3><label for="password">Password: </label>
-    <input type="password" name="password" id="password"/></h3><br/>
+    <input type="password" name="password" id="password"/></h3>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
     <input type="submit" value="Login" />
 </form>
+
+
 <h3>First time here? <a th:href="@{/registration}">Click </a>to register.</h3>
 
 </body>

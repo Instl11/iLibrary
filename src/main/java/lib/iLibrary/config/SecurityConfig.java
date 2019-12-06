@@ -34,17 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/login", "/", "/registration", "/activate/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/rest/books/*").permitAll()
-                .antMatchers("/*")
-                .authenticated()
+        http
+                .authorizeRequests()
+                    .antMatchers("/login", "/", "/registration", "/activate/*").permitAll()
+                    .antMatchers(HttpMethod.POST, "/rest/books/*").permitAll()
+                    .antMatchers("/*").authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/books")
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/books")
                 .and()
-                .logout();
+                    .logout();
 
     }
 }
