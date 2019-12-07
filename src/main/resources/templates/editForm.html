@@ -7,14 +7,20 @@
 <body>
 <div>
     <h2>Edit current book</h2>
-    <form method="POST" th:object="${editedBook}" enctype="multipart/form-data">
+    <form method="POST" th:object="${book}" enctype="multipart/form-data">
         <h3>Book's name</h3>
         <input type="text" value="*{name}" th:field="*{name}">
+        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
+
         <h3>Book's author</h3>
         <input type="text" value="*{author}" th:field="*{author}">
+        <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</td>
+
         <h3>Your mark (1-10)</h3>
         <input type="text" value="*{mark}" th:field="*{mark}">
-<!--        <input type="hidden" value="*{creationDate}" th:field="*{creationDate}">-->
+        <td th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}">Error</td>
+
+        <!--        <input type="hidden" value="*{creationDate}" th:field="*{creationDate}">-->
 <!--        <input type="hidden" value="*{fileName}" th:field="*{fileName}">-->
 
         <h3>Book file</h3>

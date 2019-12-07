@@ -44,8 +44,10 @@ public class BooksController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long id) {
-        bookService.delete(id);
+    public String deleteBook(@PathVariable("id") Long id,
+                             @AuthenticationPrincipal User user) {
+
+        bookService.delete(id, user);
         return "redirect:/books";
     }
 

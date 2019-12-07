@@ -1,6 +1,7 @@
 package lib.iLibrary.service;
 
 import lib.iLibrary.entity.Book;
+import lib.iLibrary.entity.User;
 import lib.iLibrary.exceptions.NoCurrentBookException;
 import lib.iLibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -49,14 +51,19 @@ public class BookService {
         return bookRepo.getBooksByAuthor(author);
     }
 
-    public void delete(Long id) {
+    @Transactional
+    public void delete(Long id, User user) {
+
         Book book = getById(id);
-            String fileName = book.getFileName();
-            File file = new File(uploadPath + File.separator + fileName);
-            file.delete();
-            bookRepo.delete(book);
+        user.getBookList().remove(book);
+
+        String fileName = book.getFileName();
+        File file = new File(uploadPath + File.separator + fileName);
+        file.delete();
+        bookRepo.delete(book);
     }
 
+    @Transactional
     public void deleteFile(Book book) {
         String fileName = book.getFileName();
 
@@ -66,7 +73,8 @@ public class BookService {
         bookRepo.save(book);
     }
 
-    public void addFileAndSave(Book book, MultipartFile file) {
+    @Transactional
+    public Book addFileAndSave(Book book, MultipartFile file) {
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File upPath = new File(uploadPath);
@@ -82,9 +90,10 @@ public class BookService {
             }
             book.setFileName(resultFilename);
         }
-        bookRepo.save(book);
+        return bookRepo.save(book);
     }
 
+    @Transactional
     public ResponseEntity<ByteArrayResource> download(Long id) throws IOException {
         Optional<Book> optionalBook = bookRepo.findById(id);
         if (optionalBook.isEmpty()) {

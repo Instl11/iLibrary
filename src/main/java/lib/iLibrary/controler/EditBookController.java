@@ -6,9 +6,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -27,13 +29,18 @@ public class EditBookController {
     @GetMapping("/{id}")
     public String editBookPage(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("editedBook", bookService.getById(id));
+        model.addAttribute("book", bookService.getById(id));
         return "editForm";
     }
 
     @PostMapping("/{id}")
-    public String editBook(@ModelAttribute Book editedBook,
+    public String editBook(@Valid Book editedBook,
+                           BindingResult bindingResult,
+                           Model model,
                            @RequestParam("file") MultipartFile file) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "editForm";
+        }
         Book book = bookService.getById(editedBook.getId());
         BeanUtils.copyProperties(editedBook, book, "id", "creationDate", "fileName");
 

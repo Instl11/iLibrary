@@ -5,7 +5,11 @@
     <title>Books</title>
 </head>
 <body>
-
+<h2>Welcome to book library</h2>
+<div>
+    <a th:href="@{/mybooks}"><input type="submit" value="My books"></a>
+</div>
+<br><br>
 <div>
     <h3>Add new book</h3>
     <form method="GET" th:action="@{/newBook}">
@@ -13,7 +17,6 @@
         <input type="submit" value="Add new book">
     </form>
 </div>
-
 <table width="30%" border="2" cellpadding="4">
     <caption><h3>Last five books</h3></caption>
     <tr>
